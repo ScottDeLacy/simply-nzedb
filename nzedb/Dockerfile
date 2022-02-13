@@ -1,5 +1,5 @@
-FROM alpine:3.7
-MAINTAINER theslydetector@gmail.com
+FROM alpine:latest
+MAINTAINER https://github.com/ScottDeLacy
 
 # Configure Timezone
 ENV TIMEZONE "America/Chicago"
@@ -46,7 +46,7 @@ RUN apk add --update \
 RUN curl https://getcomposer.org/installer | php7 -- --install-dir=/usr/bin --filename=composer
 
 # Build and install mediainfo
-ENV MEDIAINFO_VERSION 18.05
+ENV MEDIAINFO_VERSION 21.09
 RUN apk --update add gcc g++ && \
   mkdir -p /tmp && \
   cd /tmp && \
@@ -84,7 +84,7 @@ RUN mkdir -p /var/log/nginx && \
     touch /var/log/nginx/nginx-error.log
 
 # Clone nZEDb and set directory permissions
-ENV NZEDB_VERSION "v0.8.7.0"
+ENV NZEDB_VERSION "v0.8.22.0"
 RUN mkdir -p /var/www && \
   cd /var/www && \
   git clone https://github.com/nZEDb/nZEDb.git && \
@@ -114,7 +114,7 @@ RUN apk --update add gcc g++ ncurses-dev libevent-dev bsd-compat-headers && \
   rm -rf /var/cache/apk/*
 
 # Build and install php-yenc
-ENV PHP_ZEPHIR_PARSER_VERSION v1.1.2
+ENV PHP_ZEPHIR_PARSER_VERSION v1.3.0
 RUN cd /tmp && \
   apk --update add gcc re2c libc-dev sudo && \
   mkdir -p /tmp/zephir && \
@@ -137,7 +137,7 @@ RUN cd /tmp && \
   apk del --purge gcc re2c libc-dev sudo
 
 # Build and install par2
-ENV PAR2_VERSION "v0.8.0"
+ENV PAR2_VERSION "v0.8.1"
 RUN apk --update add gcc autoconf automake g++ python-dev openssl-dev libffi-dev && \
   git clone https://github.com/Parchive/par2cmdline.git /tmp/par2 && \
   cd /tmp/par2 && \
@@ -168,8 +168,8 @@ RUN mv /bin/gzip /bin/gzip.real && \
 RUN sed -i "s|UTF-8//IGNORE//TRANSLIT|UTF-8|g" /var/www/nZEDb/nzedb/utility/Text.php
 
 LABEL nzedb=$NZEDB_VERSION \
-  maintainer=theslydetector@gmail.com \
-  url=https://github.com/slydetector/simply-nzedb
+  maintainer=https://github.com/ScottDeLacy \
+  url=https://github.com/ScottDeLacy/simply-nzedb
 
 RUN mkdir -p /var/www/nZEDb/resources/tmp && chmod 777 /var/www/nZEDb/resources/tmp
 
