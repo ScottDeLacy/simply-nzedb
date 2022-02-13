@@ -37,7 +37,7 @@ RUN apt update && apt install \
 # vnstat in testing repo
 
 # mytop + deps
-RUN apt add --update \
+RUN apt install \
   mariadb \
   perl \
   perl-dbd-mysql \
@@ -141,7 +141,7 @@ RUN cd /tmp && \
 
 # Build and install par2
 ENV PAR2_VERSION "v0.8.1"
-RUN apt --update add gcc autoconf automake g++ python-dev openssl-dev libffi-dev && \
+RUN apt install gcc autoconf automake g++ python-dev openssl-dev libffi-dev && \
   git clone https://github.com/Parchive/par2cmdline.git /tmp/par2 && \
   cd /tmp/par2 && \
   git checkout --quiet --force $PAR2_VERSION && \
